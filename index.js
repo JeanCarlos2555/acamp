@@ -20,6 +20,15 @@ app.get('/', function(req, res){
     res.render('home')
 })
 
+app.get('/programacao', function(req, res){
+    res.render('programacoes')
+})
+app.get('/informacoes', function(req, res){
+    res.render('informacoes')
+})
+app.get('/inscricoes', function(req, res){
+    res.render('inscricoes')
+})
 app.listen(8012, function() {
     console.log("Servidor rodando na url http://localhost:8012")
 })
