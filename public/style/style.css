@@ -1,0 +1,56 @@
+.navbar, .top__bar {
+    background-color: black;
+}
+
+.deals {
+    background-color: black;
+    min-height: 400px;
+    color: white;
+    height: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.deals__titulo_acamp {
+    font-size: 10em;
+    padding-top: 150px;
+}
+
+.deals__subtitulo {
+    font-size: 1.5em;
+}
+
+.deals_info {
+    background-color: black;
+}
+.info__texto__deals {
+    padding: 30px auto;
+    text-align: center;
+    min-height: 50px;
+    background-color: white  ;
+}
+h3 {
+    font-size: 1.3rem;
+}
+.deals__img {
+    width: 100px;
+    padding: 15px;
+}
+
+@media (max-width:640px) { 
+    .deals__titulo_acamp {
+        font-size: 6em;
+    }
+    .deals__subtitulo {
+        font-size: 0.8em;
+    }
+ }
+
+ @media (max-width:350px) { 
+    .deals__titulo_acamp {
+        font-size: 3em;
+    }
+    .deals__subtitulo {
+        font-size: 0.5em;
+    }
+ }
