@@ -24,9 +24,12 @@ const pulseira = db.sequelize.define('tbl_pulseira', {
     },
     status: {
         type: db.Sequelize.STRING //Pago, Parcial
+    },
+    forma_cadastro: {
+        type: db.Sequelize.STRING //Site, manual
     }
 },{freezeTableName:true})
 
-pulseira.sync({alter: true})
+//pulseira.sync({alter: true})
 
 module.exports = pulseira

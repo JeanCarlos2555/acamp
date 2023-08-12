@@ -11,7 +11,6 @@ const { sequelize } = require('./models/db');
 const {QueryTypes} = require('sequelize');
 const db = require('./models/db');
 const { Op } = require("sequelize");
-const pulseira = require("./models/pulseira")
 
 //config
 // tamprete Engine
