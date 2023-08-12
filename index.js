@@ -4,9 +4,14 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser")
 const session = require("express-session")
-const email = process.env.MAIL_EMAIL
+const email = process.env.MAIL_USER
 const password = process.env.MAIL_PASS
 const porta = 8012
+const { sequelize } = require('./models/db');
+const {QueryTypes} = require('sequelize');
+const db = require('./models/db');
+const { Op } = require("sequelize");
+const pulseira = require("./models/pulseira")
 
 //config
 // tamprete Engine
