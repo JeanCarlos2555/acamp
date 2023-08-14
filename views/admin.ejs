@@ -11,9 +11,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md">
+        <div class="col-md mt-4">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Adicionar
             </button>
         </div>
@@ -62,15 +62,56 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Cadastrar pulseira</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="mb-3">
+          <select class="form-select" aria-label="Default select example" id="igreja" onchange="MundarValorAdmin(this.value)">
+            <option selected value="0">IBC Teresina</option>
+            <option value="1">IBC Timon</option>
+            <option value="2">IBC Picos</option>
+            <option value="3">IBC Campos sales</option>
+            <option value="3">IBC Araripina</option>
+            <option value="3">IBC Pio IX</option>
+            <option value="3">IBC Caxias</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <input type="hidden" class="form-control" id="qtde_pulseira" value="1">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Valor da pulseira</label>
+          <input type="number" class="form-control" id="valor_pulseira" value="140.00">
+        </div>
+        <div id="campos_forms">
+            <hr>
+            <div class="mb-3">
+              <label for="nome1" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nome1" name="nome_1" placeholder="Nome">
+            </div>
+            <div class="mb-3">
+              <label for="sobreNome1" class="form-label">Sobre nome</label>
+              <input type="text" class="form-control" id="sobreNome1" nome="sobreNome_1" placeholder="Sobre nome">
+            </div>
+        </div>
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-auto">
+              <label for="sobreNome1" class="form-label">Total a pagar</label>
+              <input type="number" class="form-control" id="total_apagar" nome="total_apagar" value="140.00" placeholder="Total">  
+            </div>
+            <div class="col-auto">
+              <label for="sobreNome1" class="form-label">Valor pago</label>
+              <input type="number" class="form-control" id="valor_pago" nome="valor_pago" placeholder="Pago">
+            </div>  
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-success" onclick="mudarQtdePulseiras()">Add familiares</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar</button>
       </div>
     </div>
   </div>
