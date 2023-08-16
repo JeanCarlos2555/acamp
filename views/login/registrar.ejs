@@ -1,0 +1,64 @@
+<%#- include("../partials/head.ejs")%>
+<%#- include("../partials/topbar.ejs")%>
+<%#- include("../partials/header.ejs")%>
+<%- include("../partials/header") %>
+<main>
+    <div class="container">
+        <%if(erro != undefined){%>
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>
+              <%=erro%>
+            </div>
+        </div>
+        <%}%>
+
+        <div class="card my-5">
+            <div class="card-header text-center bg-primary text-white">
+                <h2>Cadastro de usuario</h2>
+            </div>
+            <div class="card-body">
+                <form action="/login/registrar" method="post" class="needs-validation my-3" id="form" novalidate>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="firstName" class="form-label">Nome Completo</label>
+                            <input value="<%=nome%>" type="text" class="form-control" id="nome" name="nome" placeholder="Informe seu Nome e Sobrenome" required>
+                            <div class="invalid-feedback">
+                                Dados vazios
+                            </div>
+                            <div class="valid-feedback">
+                                Ok
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input value="<%=email%>" type="email" class="form-control" id="email" name="email" placeholder="Informe o seu Endereço de Email" required/>
+                            <div class="invalid-feedback">
+                                Dados vazios
+                            </div>
+                            <div class="valid-feedback">
+                                OK
+                            </div>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <label for="senha" class="form-label">Senha</label>
+                            <input type="password" class="form-control" name="senha" onchange="valid()" id="senha" placeholder="Informe sua senha" required/>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <label for="confirm" class="form-label">Confirme sua senha</label>
+                            <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Repita sua senha" required/>
+                        </div>
+                        <div class="col-12 my-3">
+                            <a href="/login">Voltar para Login</a>
+                        </div>
+                        <div class="mb-4 col-12 text-center">
+                            <button class="mt-5 btn-lg btn btn-primary" id="submit" type="submit">Cadastrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include("../partials/end.ejs") %>

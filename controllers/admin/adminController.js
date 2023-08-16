@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router();
-const pulseira = require("../../models/pulseira")
+const pulseira = require("../../models/Pulseira")
 
 router.get("/", async (req, res) => {
     const pulseiras = await pulseira.findAll({order: [['id', 'ASC']]});

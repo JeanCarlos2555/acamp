@@ -20,7 +20,4 @@ sequelize.authenticate().then(function(){
     console.log('Erro ao se conectar: '+erro)
 })
 
-module.exports = {
-    Sequelize: Sequelize,
-    sequelize: sequelize
-}
+module.exports = sequelize

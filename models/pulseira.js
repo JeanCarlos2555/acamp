@@ -1,35 +1,39 @@
-const db = require("./db")
+const connection = require('./db')
+const Sequelize = require('sequelize')
 
-const pulseira = db.sequelize.define('tbl_pulseira', {
+
+const Pulseira = connection.define('tbl_pulseira', {
     nome: {
-        type: db.Sequelize.STRING
+        type:Sequelize.STRING
     },
     sobre_nome: {
-        type: db.Sequelize.STRING
+        type:Sequelize.STRING
     },
     igreja: {
-        type: db.Sequelize.STRING //IBC Teresina, IBC Picos, OUTRAS DENOMINAÇÔES etc
+        type:Sequelize.STRING //IBC Teresina, IBC Picos, OUTRAS DENOMINAÇÔES etc
     },
     valor_pulseira: {
-        type: db.Sequelize.DECIMAL
+        type:Sequelize.DECIMAL
     },
     qtde_pulseira: {
-        type: db.Sequelize.INTEGER
+        type:Sequelize.INTEGER
     },
     valor_total: {
-        type: db.Sequelize.DECIMAL
+        type:Sequelize.DECIMAL
     },
     valor_pago: {
-        type: db.Sequelize.DECIMAL
+        type:Sequelize.DECIMAL
     },
     status: {
-        type: db.Sequelize.STRING //Pago, Parcial
+        type:Sequelize.STRING //Pago, Parcial
     },
     forma_cadastro: {
-        type: db.Sequelize.STRING //Site, manual
+        type:Sequelize.STRING //Site, manual
     }
 },{freezeTableName:true})
 
-//pulseira.sync({alter: true})
+Pulseira.sync({alter: true}).then(()=>{
+    console.log("Tabela Pulseira criada")
+})
 
-module.exports = pulseira
+module.exports = Pulseira

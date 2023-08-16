@@ -4,32 +4,47 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser")
 const session = require("express-session")
-const email = process.env.MAIL_USER
-const password = process.env.MAIL_PASS
-const porta = 8012
-const { sequelize } = require('./models/db');
-const {QueryTypes} = require('sequelize');
-const db = require('./models/db');
-const { Op } = require("sequelize");
+const cookieParser = require("cookie-parser")
+const flash = require('express-flash')
+const auth = require('./middleware/auth')
 
-//config
-// tamprete Engine
-//app.engine('ejs', ejs.engine({defaultLayout: 'main'}));
+const PORT = process.env.PORT || 8012
+
+const db = require('./models/db');
+
+app.use(cookieParser("asdfasfdasfaz"))
+app.use(session({
+    secret: "sdfsdfsdfgdfgfgh",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 86400000 }
+}))
+app.use(flash())
+
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
-//body-parser
 app.use(express.static(path.join(__dirname, "public")))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-app.use(session({secret: 'kldasjdlaskdjskvnlkmdlas'}))
 
-const ControlerAdmin = require('./controlers/admin/ControlerAdmin');
-app.use('/admin', auth, ControlerAdmin)
+app.use((req, res, next) => {
+    let erro = req.flash('erro');
+    let msm = req.flash('msm');
+    erro = (erro == undefined || erro.length == 0)?undefined:erro
+    msm = (msm == undefined || msm.length == 0)?undefined:msm
+    res.locals.erro = erro 
+    res.locals.msm = msm 
+    next();
+});
 
-function auth(req, res, next) {
-    next()
-}
+const adminController = require('./controllers/admin/adminController');
+const loginController = require('./controllers/loginController');
+const apiController = require('./controllers/apiController');
+app.use('/admin', auth, adminController)
+app.use('/login', loginController)
+app.use('/api', apiController)
+app.use('/hook', apiController)
 
 app.get('/', function(req, res){
     res.render('home')
@@ -45,8 +60,7 @@ app.get('/inscricoes', function(req, res){
     res.render('inscricoes')
 })
 
-
-app.listen(porta, function() {
-    console.log(`Servidor rodando na url http://localhost:${porta}`)
+app.listen(PORT, function() {
+    console.log(`Servidor rodando na url http://localhost:${PORT}`)
 })
  

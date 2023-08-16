@@ -1,0 +1,30 @@
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToastErro" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-dark ">
+        <strong class="me-auto text-white fw-bolder "><i class="bi bi-exclamation-octagon-fill"></i> Mensagem de erro</strong>
+        <small>Agora</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body toast-erro text-danger fw-bolder">
+        <input type="hidden" id="toastErro" value="<%=(erro == undefined)?false:true%>">
+        <%if(erro != undefined){%>
+            <%=erro%>
+        <%}%>  
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToastMsm" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header bg-dark ">
+      <strong class="me-auto text-white fw-bolder "><i class="bi bi-exclamation-octagon-fill"></i> Mensagem de Sucesso!</strong>
+      <small>Agora</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body toast-msm text-success fw-bolder">
+      <input type="hidden" id="toastMsm" value="<%=(msm == undefined)?false:true%>">
+      <%if(msm != undefined){%>
+          <%=msm%>
+      <%}%>  
+  </div>
+</div>

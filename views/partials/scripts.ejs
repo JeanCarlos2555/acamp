@@ -1,0 +1,30 @@
+<%- include("./toast.ejs")%>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="/js/script.js"></script>
+<script src="/js/toastRetorno.js"></script>
+<script src="/js/submit.js"></script>
+
+
+<script>
+    $(document).ready(() => {
+      const toastErro = document.getElementById('toastErro')
+      if (toastErro != undefined && (toastErro.value == 'true' || toastErro.value == true)) {
+        const toastLiveExample = document.getElementById('liveToastErro')
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample, {
+          autohide: false
+        })
+        toastBootstrap.show()
+      }
+  
+      const toastMsm = document.getElementById('toastMsm')
+      if (toastMsm != undefined && (toastMsm.value == 'true' || toastMsm.value == true)) {
+        const toastLiveExampleMsm = document.getElementById('liveToastMsm')
+        const toastBootstrapMsm = bootstrap.Toast.getOrCreateInstance(toastLiveExampleMsm, {
+          autohide: false
+        })
+        toastBootstrapMsm.show()
+      }
+  
+    })
+
+</script>

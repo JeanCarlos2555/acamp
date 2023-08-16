@@ -1,0 +1,53 @@
+
+<%- include("../partials/header") %>
+
+<main>
+  <section id="">
+    <div class="container" data-aos="zoom-out">
+      <div class="row justify-content-center my-5">
+        <div class="col-md-8">
+          <div class="card">
+            <form action="/login/alterar/" class="needs-validation" novalidate method="post">
+              <div class="card-header text-white bg-primary text-white py-3 text-center">
+                <h3>Alteração de senha!</h3>
+                <p>Gentileza informar nova senha</b></strong></p>
+              </div>
+              <div class="card-body">
+                <div class="row my-4 justify-content-center">
+                  <div class="col-lg-10 my-2">
+                    <label for="senha" class="form-label">Senha *</label>
+                    <div class="input-group">
+                      <span class="input-group-text" id="addon-email"><i class="bi bi-person-fill-lock"></i></span>
+                      <input required type="password" name="senha" placeholder="Digite sua nova senha" id="senha" class="form-control">
+                      <div class="invalid-feedback">
+                        Por gentileza informar senha.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-10 my-2">
+                    <label for="confirm" class="form-label">Confirmar Senha *</label>
+                    <div class="input-group">
+                      <span class="input-group-text" id="addon-email"><i class="bi bi-person-lock"></i></span>
+                      <input required type="password" name="confirm" placeholder="Digite a confirmação da senha" id="confirm" class="form-control">
+                      <div class="invalid-feedback">
+                        Por gentileza confirmar senha.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-center">
+                <div class="row justify-content-center">
+                  <div class="col-8 my-2">
+                    <button type="submit" class="btn btn-primary form-control">Confirmar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include("../partials/end.ejs") %>
