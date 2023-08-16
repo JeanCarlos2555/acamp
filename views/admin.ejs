@@ -1,7 +1,8 @@
-<%- include("partials/head") %>
+<%- include("partials/conexoes/top")%>
+<%- include("partials/headAdmin") %>
 <div class="container">
     <div class="row admin__titulo">
-        <div class="col-md-8">
+        <div class="col-md-8" id="titulo">
             <h1>ACAMP 2023 - Pessoas Cadastradas</h1>
         </div>
         <div class="col-md-4 d-flex justify-content-end">
@@ -65,6 +66,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Cadastrar pulseira</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+    <form id="form_cadastrar" method="post">
       <div class="modal-body">
         <div class="mb-3">
           <select class="form-select" aria-label="Default select example" id="igreja" onchange="MundarValorAdmin(this.value)">
@@ -107,12 +109,16 @@
             </div>  
           </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" onclick="mudarQtdePulseiras()">Add familiares</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" onclick="mudarQtdePulseiras()">Add familiares</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Salvar</button>
-      </div>
+    </form>  
     </div>
   </div>
 </div>
+
+<%- include("partials/conexoes/endBody") %>
+<%- include("partials/conexoes/endHtml") %>

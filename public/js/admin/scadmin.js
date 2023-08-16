@@ -1,3 +1,5 @@
+const form_cadastrar = document.getElementById("form_cadastrar")
+
 function MundarValorAdmin(igreja) {
     qtde = document.getElementById("qtde_pulseira").value
     if (igreja == 0 || igreja == 1) {
@@ -41,3 +43,15 @@ function mudarQtdePulseiras() {
     campos_forms = document.getElementById("campos_forms").innerHTML
     document.getElementById("campos_forms").innerHTML = campos_forms + html
 }
+
+form_cadastrar.addEventListener("submit", (click) => {
+   click.preventDefault();
+
+   qtde = document.getElementById("qtde_pulseira").value
+   
+   for (let i = 1; i <= qtde; i++) {
+    
+    alert(i + " de " + qtde)    
+
+   }
+})

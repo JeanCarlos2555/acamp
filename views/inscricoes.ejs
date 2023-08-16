@@ -127,7 +127,7 @@
             <form>
             <div class="modal-body">
                 <div class="mb-3">
-                  <select class="form-select" aria-label="Default select example" onchange="selecionarIgreja(this.value)">
+                  <select class="form-select" aria-label="Default select example" onchange="selecionarIgreja(this.value)" id="igreja">
                     <option value="" selected>Selecione a sua igreja</option>
                     <option value="0">IBC Teresina</option>
                     <option value="1">IBC Timon</option>
@@ -138,19 +138,23 @@
                     <option value="3">IBC Caxias</option>
                   </select>
                 </div>
-                <input type="hidden" value="3" id="qtde">
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Informe seu nome</label>
-                  <input type="text" class="form-control" id="nome" nome="nome" placeholder="nome">
-                <div class="mb-3">
-                  <label for="sobrenome" class="form-label">Informe seu sobre nome</label>
-                  <input type="text" class="form-control" id="sobrenome" nome="sobrenome" placeholder="Sobrenome">
+                <input type="hidden" value="1" id="qtde">
+                <div class="nomes">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Informe seu nome</label>
+                    <input type="text" class="form-control" id="nome" nome="nome" placeholder="nome">
+                  </div>
+                  <div class="mb-3">
+                    <label for="sobrenome" class="form-label">Informe seu sobre nome</label>
+                    <input type="text" class="form-control" id="sobrenome" nome="sobrenome" placeholder="Sobrenome">
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="total">Total a pagar</label>
                   <input type="number" disabled class="form-control" placeholder="Total a pagar" id="total">
                 </div>
             <div class="modal-footer">
+              <button type="button" class="btn btn-success" onclick="addDependete()">ADD dependente</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
               <button type="button" class="btn btn-primary" onclick="irparaopagamento()" id="buttonPagamento" disabled>Ir para o pagamento</button>
             </div>
@@ -159,3 +163,5 @@
         </div>
       </div>
     </body>
+    <%- include("partials/conexoes/endBody") %>
+    <%- include("partials/conexoes/endHtml") %>

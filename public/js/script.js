@@ -25,3 +25,12 @@ function selecionarIgreja(igreja) {
     }
     document.getElementById("total").value = valor
 }
+
+function addDependete() {
+    igreja = document.getElementById("igreja").value
+    qtde = document.getElementById("qtde").value
+    qtde++
+    document.getElementById("qtde").value = qtde
+
+    html = document.getElementById("nomes").innerHTML
+}
