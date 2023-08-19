@@ -1,4 +1,4 @@
-<%- include("partials/head.ejs") %>
+<%- include("partials/headAdmin.ejs") %>
 <div class="container">
     <div class="row admin__titulo">
         <div class="col-md-8" id="titulo">
@@ -65,10 +65,10 @@
         <h5 class="modal-title" id="exampleModalLabel">Cadastrar pulseira</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    <form id="form_cadastrar" method="post">
+    <form id="form_cadastrar" method="post" action="/admin/cadpulseira">
       <div class="modal-body">
         <div class="mb-3">
-          <select class="form-select" aria-label="Default select example" id="igreja" onchange="MundarValorAdmin(this.value)">
+          <select class="form-select" aria-label="Default select example" id="igreja" name="igreja" onchange="MundarValorAdmin(this.value)">
             <option selected value="0">IBC Teresina</option>
             <option value="1">IBC Timon</option>
             <option value="2">IBC Picos</option>
@@ -83,7 +83,7 @@
         </div>
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Valor da pulseira</label>
-          <input type="number" class="form-control" id="valor_pulseira" value="140.00">
+          <input type="number" class="form-control" id="valor_pulseira" name="valor_pulseira" value="140.00">
         </div>
         <div id="campos_forms">
             <hr>
@@ -93,18 +93,18 @@
             </div>
             <div class="mb-3">
               <label for="sobreNome1" class="form-label">Sobre nome</label>
-              <input type="text" class="form-control" id="sobreNome1" nome="sobreNome_1" placeholder="Sobre nome">
+              <input type="text" class="form-control" id="sobrenome1" name="sobrenome_1" placeholder="Sobre nome">
             </div>
         </div>
         <div class="mb-3">
           <div class="row">
             <div class="col-auto">
-              <label for="sobreNome1" class="form-label">Total a pagar</label>
-              <input type="number" class="form-control" id="total_apagar" nome="total_apagar" value="140.00" placeholder="Total">  
+              <label for="total_apagar" class="form-label">Total a pagar</label>
+              <input type="number" class="form-control" id="total_apagar" name="total_apagar" value="140.00" placeholder="Total" disabled>  
             </div>
             <div class="col-auto">
-              <label for="sobreNome1" class="form-label">Valor pago</label>
-              <input type="number" class="form-control" id="valor_pago" nome="valor_pago" placeholder="Pago">
+              <label for="valor_pago" class="form-label">Valor pago</label>
+              <input type="number" class="form-control" id="valor_pago" name="valor_pago" placeholder="Pago">
             </div>  
           </div>
         </div>

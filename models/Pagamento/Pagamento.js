@@ -108,8 +108,8 @@ Pagamento.belongsTo(Pulseira, {
   foreignKey: 'pulseiraId'
 });
   
-Pagamento.sync({alter: true}).then(()=>{
-    console.log("Tabela Pagamento criada")
-})
+//Pagamento.sync({alter: true}).then(()=>{
+//    console.log("Tabela Pagamento criada")
+//})
 
 module.exports = Pagamento

@@ -32,8 +32,8 @@ const Pulseira = connection.define('tbl_pulseira', {
     }
 },{freezeTableName:true})
 
-Pulseira.sync({alter: true}).then(()=>{
-    console.log("Tabela Pulseira criada")
-})
+//Pulseira.sync({alter: true}).then(()=>{
+//    console.log("Tabela Pulseira criada")
+//})
 
 module.exports = Pulseira

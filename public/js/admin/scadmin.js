@@ -26,7 +26,7 @@ function mudarQtdePulseiras() {
         </div>
         <div class="mb-3">
           <label for="sobreNome${qtde}" class="form-labe${qtde}">Sobrenome do familiar ${qtde-1}</label>
-          <input type="text" class="form-control" id="sobreNome${qtde}" nome="sobreNome_${qtde}" placeholder="Sobrenome do familiar ${qtde-1}">
+          <input type="text" class="form-control" id="sobreNome${qtde}" name="sobreNome_${qtde}" placeholder="Sobrenome do familiar ${qtde-1}">
         </div>`
         if (igreja == 0 || igreja == 1) {
             if (qtde >= 3 ) {
@@ -46,12 +46,16 @@ function mudarQtdePulseiras() {
 
 form_cadastrar.addEventListener("submit", (click) => {
    click.preventDefault();
-
    qtde = document.getElementById("qtde_pulseira").value
-   
-   for (let i = 1; i <= qtde; i++) {
-    
-    alert(i + " de " + qtde)    
-
+   validador = true
+   //Validador
+   for (let i = 1; i <= qtde; i++) {    
+    nome = document.getElementById(`nome${i}`).value
+    sobrenomme = document.getElementById(`sobrenome${i}`)
+     if (nome == "" || sobrenomme == "") {
+        validador = false
+     }
    }
+   console.log(validador)
+   form_cadastrar.submit()
 })

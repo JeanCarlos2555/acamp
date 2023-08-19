@@ -39,8 +39,8 @@ const User = connection.define('tbl_users',{
 },
 {freezeTableName:true})
 
-User.sync({alter: true}).then(()=>{
-    console.log("Tabela User criada")
-})
+//User.sync({alter: true}).then(()=>{
+//    console.log("Tabela User criada")
+//})
 
 module.exports = User
