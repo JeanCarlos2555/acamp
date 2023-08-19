@@ -47,15 +47,42 @@ function mudarQtdePulseiras() {
 form_cadastrar.addEventListener("submit", (click) => {
    click.preventDefault();
    qtde = document.getElementById("qtde_pulseira").value
+   valor_total = document.getElementById("total_apagar").value
+   valor_pago = document.getElementById("valor_pago").value
    validador = true
-   //Validador
+   erro = ""
+
+   //valida se o valor pago está em branco
+   if (valor_pago == "") {
+    validador = false
+    erro = "\nERRO 0: Nenhum valor foi estipulado!"
+   }
+
+    //Validar se o valor total é menor que o valor pago
+    if (parseFloat(valor_total) < parseFloat(valor_pago)) {
+        validador = false
+        erro = "\nERRO 1: O valor pago não pode ser maior que o valor total das pulseiras!"
+    }
+
+
+   //Validador dos campos de nomes
    for (let i = 1; i <= qtde; i++) {    
     nome = document.getElementById(`nome${i}`).value
-    sobrenomme = document.getElementById(`sobrenome${i}`)
+    sobrenomme = document.getElementById(`sobrenome${i}`).value
      if (nome == "" || sobrenomme == "") {
         validador = false
+        msg = "\nErro 2: Existem campos de Nome e/ou sobre nome não preenchidos!"
      }
+     console.log(nome + "     " + sobrenomme)
    }
-   console.log(validador)
-   form_cadastrar.submit()
+
+
+   //Validador
+   if (validador == true) {
+    form_cadastrar.submit()
+   } else {
+    erro = erro + msg
+    alert(erro)
+   }
+   
 })
