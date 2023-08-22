@@ -8,9 +8,8 @@ const cookieParser = require("cookie-parser")
 const flash = require('express-flash')
 const auth = require('./middleware/auth')
 
-const PORT = process.env.PORT || 8012
 
-const db = require('./models/db');
+const PORT = process.env.PORT || 8012
 
 app.use(cookieParser("asdfasfdasfaz"))
 app.use(session({
