@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -30,15 +30,20 @@
               <label for="sobrenome" class="form-label">Informe seu sobre nome</label>
               <input type="text" class="form-control" id="sobrenome" nome="sobrenome" placeholder="Sobrenome">
             </div>
+            <div id="form_afiliados" class="mb-3">
+
+            </div>
           </div>
           <div class="mb-3">
             <label for="total">Total a pagar</label>
             <input type="number" disabled class="form-control" placeholder="Total a pagar" id="total">
           </div>
+          <div class="mb-3">
+            <button type="button" class="btn btn-success disabledButton" onclick="addDependete()">ADD dependente</button>
+          </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" onclick="addDependete()">ADD dependente</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-primary" onclick="irparaopagamento()" id="buttonPagamento" disabled>Ir para o pagamento</button>
+            <button type="button" class="btn btn-primary disabledButton" onclick="irparapagamento()" id="buttonPagamento" disabled>Ir para o pagamento</button>
           </div>
       </form>
     </div>

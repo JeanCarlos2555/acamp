@@ -1,17 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const pulseira = require("../../models/Pulseira")
-const pagamento = require("../../models/Pagamento/pagamento");
+const Pulseira = require("../../models/Pulseira/Pulseira")
+const Pagamento = require("../../models/Pagamento/Pagamento");
 
 router.get("/", async (req, res) => {
-    const pulseiras = await pulseira.findAll({order: [['id', 'ASC']]});
+    const pulseiras = await Pulseira.findAll({order: [['id', 'ASC']]});
     res.render("admin", {pulseiras: pulseiras})
 })
 
 router.post("/cadpulseira", async (req, res) => {
   
     //Cadastrar pagamento.
-    //Methodo = "Dinheiro fisico" // status fisico // cliente nome = nome // cliente email = email@ibc //cliente documento = 0  // cliente phone = 0 // item = pulseira // valor
+    //Methodo = "Dinheiro fisico" // status fisico // cliente nome = nome // cliente email = email@ibc //cliente documento = 0  // cliente phone = 0 // item = Pulseira // valor
     const valor = req.body.valor_pago
 
     axios.post(`/cadpagamento`, valor).then(resposta => {
@@ -34,7 +34,7 @@ router.post("/cadpagamento", async function(req, res) {
     const clientPhone = "0"
     const item = "IBC Teresina - Acamp 2023"
 
-    pagamento.create({
+    Pagamento.create({
         method: method,
         status: status,
         clientNome: clientNome,

@@ -15,28 +15,27 @@ async function gerarPagamento(pagamento, client,items) {
             reference_id: pagamento.reference_id,
             expiration_date: `${moment().add(20,'minutes').format()}`,
             customer:{
-                name:client.nome,
-                email:client.email,
-                tax_id:client.cpf,
-                phones:[
-                    {
-                        country:55,
-                        area:client.telefone.substr(0,2),
-                        type: "MOBILE",
-                        number: client.telefone.replace(client.telefone.substr(0,2),'') 
-                    }
-                ]
+                name:pagamento.clientNome,
+                // email:client.email,
+                // tax_id:client.cpf,
+                // phones:[
+                //     {
+                //         country:55,
+                //         area:client.telefone.substr(0,2),
+                //         type: "MOBILE",
+                //         number: client.telefone.replace(client.telefone.substr(0,2),'') 
+                //     }
+                // ]
             },
             items:[{
                 // reference_id: items.id,
                 name:items.desc,
                 quantity:items.quantity,
-                unit_amount:items.valorUnit
+                unit_amount:items.unit_amount
             }],
             notification_urls:[`https://dev.revonmidias.com/hook/pg/notificacao/${pagamento.reference_id}`],
             redirect_url:`https://dev.revonmidias.com/equilibrium`,
             return_url:`https://dev.revonmidias.com/equilibrium`,
-            ...charg
         }
         console.log('Criando um checkout. URL: ',url)
         console.log('Corpo da Requisição: ')

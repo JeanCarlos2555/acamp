@@ -1,4 +1,4 @@
-const connection = require('./db')
+const connection = require('../db')
 const Sequelize = require('sequelize')
 
 
@@ -6,7 +6,7 @@ const Pulseira = connection.define('tbl_pulseira', {
     nome: {
         type:Sequelize.STRING
     },
-    sobre_nome: {
+    sobrenome: {
         type:Sequelize.STRING
     },
     igreja: {
@@ -22,18 +22,24 @@ const Pulseira = connection.define('tbl_pulseira', {
         type:Sequelize.DECIMAL
     },
     valor_pago: {
-        type:Sequelize.DECIMAL
+        type:Sequelize.DECIMAL,
+        allowNull:true
     },
     status: {
-        type:Sequelize.STRING //Pago, Parcial
+        type:Sequelize.STRING, //Pago, Parcial
+        allowNull:true
     },
     forma_cadastro: {
         type:Sequelize.STRING //Site, manual
+    },
+    pagamentoId:{
+        type:Sequelize.INTEGER,
+        allowNull:true
     }
 },{freezeTableName:true})
 
-//Pulseira.sync({alter: true}).then(()=>{
-//    console.log("Tabela Pulseira criada")
-//})
+Pulseira.sync({alter: true}).then(()=>{
+   console.log("Tabela Pulseira criada")
+})
 
 module.exports = Pulseira

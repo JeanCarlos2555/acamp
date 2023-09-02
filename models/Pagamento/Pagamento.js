@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize")
 const connection = require("../db")
-const Pulseira = require("../Pulseira");
+const Pulseira = require("../Pulseira/Pulseira");
 
 const Pagamento = connection.define('tbl_pagamentos',{
     method:{
@@ -59,15 +59,15 @@ const Pagamento = connection.define('tbl_pagamentos',{
     },
     clientEmail:{
         type:Sequelize.STRING,
-        allowNull:false
+        allowNull:true
     },
     clientDocumento:{
         type:Sequelize.STRING,
-        allowNull:false
+        allowNull:true
     },
     clientPhone:{
         type:Sequelize.STRING,
-        allowNull:false
+        allowNull:true
     },
     item:{
         type:Sequelize.TEXT,
@@ -108,8 +108,8 @@ Pagamento.belongsTo(Pulseira, {
   foreignKey: 'pulseiraId'
 });
   
-//Pagamento.sync({alter: true}).then(()=>{
-//    console.log("Tabela Pagamento criada")
-//})
+Pagamento.sync({alter: true}).then(()=>{
+   console.log("Tabela Pagamento criada")
+})
 
 module.exports = Pagamento

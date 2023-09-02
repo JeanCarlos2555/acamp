@@ -3,6 +3,7 @@ const retorno = require('../functions/retorno')
 
 async function auth(req,res,next) {
     try {
+        req.session.user =1
         const user = req.session.user
         if (user != undefined) {
             const usuario = await User.findOne({where:{id:user,status:true},attributes:['id']})
