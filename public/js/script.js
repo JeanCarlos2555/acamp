@@ -4,13 +4,18 @@ async function irparapagamento() {
     const nome = $('#nome').val()
     const sobrenome = $('#sobrenome').val()
     const isMeia = $(`#isMeia`).val()
+    const disabledButton = $(".disabledButton")
+    disabledButton.prop('disabled', true)
 
     if ((!isNaN(parseInt(qtde)) && qtde >= 1)) {
         if (!igreja || igreja == '') {
-            return alert('Gentileza selecione a igreja')
+            disabledButton.prop('disabled', false)
+            return toastErro('Gentileza selecione a igreja')
+
         }
         if (!nome || !sobrenome || nome == '' || sobrenome == '') {
-            return alert('Gentileza informar nome e sobrenome')
+            disabledButton.prop('disabled', false)
+            return toastErro('Gentileza informar nome e sobrenome')
         }
         try {
             const client = { nome: nome, sobrenome: sobrenome, isMeia: isMeia }
@@ -31,7 +36,9 @@ async function irparapagamento() {
             button.click()
         } catch (error) {
             console.log(error)
-            alert('Ocorreu um erro durante o processamento de dados do seu pedido. Recarregue a página e tente novamente!')
+            disabledButton.prop('disabled', false)
+
+            toastErro('Ocorreu um erro durante o processamento de dados do seu pedido. Recarregue a página e tente novamente!')
         }
     }
 }
@@ -127,4 +134,7 @@ const handleShowModal = () => {
     $("#form_afiliados").html('')
     $("#qtde").val(1)
     $("#total").val(0)
+    $("#igreja").val('')
+    $("#nome").val('')
+    $("#sobrenome").val('')
 }

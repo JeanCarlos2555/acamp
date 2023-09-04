@@ -98,21 +98,20 @@ app.get('/sucesso', async (req, res)=>{
 
 app.get('/impressao', async (req, res)=>{
     try {
-        // const referenceId = req.query.referenceId
+        const referenceId = req.query.referenceId
 
-        // if (!referenceId) {
-        //     console.log('Referência não foi recebida')
-        //     return res.redirect('/')        
-        // }
+        if (!referenceId) {
+            console.log('Referência não foi recebida')
+            return res.redirect('/')        
+        }
         //FAZER UM GET NA API DE PAGAMENTOS PRA ATUALIZAR O STATUS
         
-        // const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
-        // if (!pagamento) {
-        //     console.log('Pagamento não encontrado na base de dados '+ referenceId)
-        //     return res.redirect('/')   
-        // }
-        // const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
-        const pulseiras = await Pulseira.findAll({where:{pagamentoId:16}})
+        const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
+        if (!pagamento) {
+            console.log('Pagamento não encontrado na base de dados '+ referenceId)
+            return res.redirect('/')   
+        }
+        const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
         if (pulseiras.length == 0) {
             console.log('Pulseiras não atreladas ao pagamento '+ pulseiras.id)
             return res.redirect('/') 
