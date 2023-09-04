@@ -19,7 +19,7 @@ router.post('/notificacao/:referenceId',async(req,res)=>{
             char_id:payment.charges[0].id,
             char_status:payment.charges[0].status,
             char_payment_installments:payment.charges?[0].payment_method?.installments:null,
-            char_payment_type:payment.charges[0]?payment_method?.type:null,
+            char_payment_type:payment.charges?[0].payment_method?.type:null,
             char_createdAt:payment.charges[0].createdAt,
             char_paidAt:payment.charges[0].paidAt,
             char_value:payment.charges[0].amount.value,
