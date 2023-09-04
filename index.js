@@ -92,6 +92,7 @@ app.get('/sucesso', async (req, res)=>{
 
         res.render('sucesso',{pulseiras,pagamento:pag})
     } catch (error) {
+        console.log(error)
         res.redirect('/')        
     }
 })

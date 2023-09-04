@@ -18,10 +18,10 @@ const Pulseira = connection.define('tbl_pulseira', {
         type:Sequelize.STRING //IBC Teresina, IBC Picos, OUTRAS DENOMINAÇÔES etc
     },
     valor_pulseira: {
-        type:Sequelize.DECIMAL
+        type:Sequelize.FLOAT
     },
     valor_pago: {
-        type:Sequelize.DECIMAL,
+        type:Sequelize.FLOAT,
         allowNull:true
     },
     status: {
