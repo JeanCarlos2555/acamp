@@ -9,7 +9,7 @@ const flash = require('express-flash')
 const auth = require('./middleware/auth')
 
 
-const PORT = process.env.PORT || 8012
+const PORT = process.env.PORT || 8013
 
 app.use(cookieParser("asdfasfdasfaz"))
 app.use(session({
@@ -40,13 +40,14 @@ app.use((req, res, next) => {
 const adminController = require('./controllers/admin/adminController');
 const loginController = require('./controllers/loginController');
 const apiController = require('./controllers/apiController');
+const hookController = require('./controllers/hookController');
 const Pagamento = require("./models/Pagamento/Pagamento");
 const Pulseira = require("./models/Pulseira/Pulseira");
 const getPagamento = require("./functions/getPagamento");
 app.use('/admin', auth, adminController)
 app.use('/login', loginController)
 app.use('/api', apiController)
-app.use('/hook', apiController)
+app.use('/hook', hookController)
 
 app.get('/', function(req, res){
     res.render('home')
@@ -83,7 +84,7 @@ app.get('/sucesso', async (req, res)=>{
         }
 
 
-        const pulseiras = await Pulseira.findAll({where:{pagamentoId:7}})
+        const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
         if (pulseiras.length == 0) {
             console.log('Pulseiras não atreladas ao pagamento '+ pagamento.id)
             return res.redirect('/') 

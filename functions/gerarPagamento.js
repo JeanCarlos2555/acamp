@@ -35,8 +35,8 @@ async function gerarPagamento(pagamento,items) {
             //     unit_amount:items.unit_amount
             // }],
             notification_urls:[`https://ibc.revonmidias.com/hook/pg/notificacao/${pagamento.reference_id}`],
-            redirect_url:`https://ibc.revonmidias.com/equilibrium?referenceId=${pagamento.reference_id}`,
-            return_url:`https://ibc.revonmidias.com/equilibrium?referenceId=${pagamento.reference_id}`,
+            redirect_url:`https://ibc.revonmidias.com/sucesso?referenceId=${pagamento.reference_id}`,
+            return_url:`https://ibc.revonmidias.com/sucesso?referenceId=${pagamento.reference_id}`,
         }
         console.log('Criando um checkout. URL: ',url)
         console.log('Corpo da Requisição: ')
