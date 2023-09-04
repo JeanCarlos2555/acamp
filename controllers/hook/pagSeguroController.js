@@ -13,6 +13,9 @@ router.post('/notificacao/:referenceId',async(req,res)=>{
         console.log(req.params.referenceId)
         const payment = req.body
         const referenceId = req.params.referenceId
+        if (payment.charges && payment.charges[0]) {
+            console.log(payment.charges[0].payment_method)
+        }
         const model = {
             payment_id:payment.id,
             referecia_id:referenceId,
