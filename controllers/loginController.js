@@ -86,6 +86,7 @@ router.get("/registrar", async (req, res) => {
 router.post("/registrar", async (req, res) => {
     try {
         let { nome, email, senha, confirm } = req.body;
+        console.log(req.body)
         let erro = "";
         req.flash("nome", nome);
         req.flash("email", email);
@@ -98,18 +99,22 @@ router.post("/registrar", async (req, res) => {
             senha != "" &&
             senha != undefined
         ) {
+
             email = email.toLowerCase();
             if (senha != confirm) {
                 erro = "Senhas não são iguais";
                 req.flash("erro", erro);
                 return res.redirect("/user/registrar");
             }
+            console.log('Aqui')
 
             if (validator.isEmail(email) != true) {
                 erro = "Email Inválido";
                 req.flash("erro", erro);
                 return res.redirect("/login/registrar");
             }
+            console.log('Aqui')
+
 
             const userEncontrado = await User.findOne({
                 where: { email: email },
@@ -151,6 +156,7 @@ router.post("/registrar", async (req, res) => {
             return res.redirect("/login/registrar");
         }
     } catch (error) {
+        console.log(error)
         let erro = "Dados importantes estão vazio, gentileza preencha todos os dados";
         req.flash("erro", erro);
         return res.redirect("/login/registrar");

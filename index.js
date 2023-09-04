@@ -40,6 +40,9 @@ app.use((req, res, next) => {
 const adminController = require('./controllers/admin/adminController');
 const loginController = require('./controllers/loginController');
 const apiController = require('./controllers/apiController');
+const Pagamento = require("./models/Pagamento/Pagamento");
+const Pulseira = require("./models/Pulseira/Pulseira");
+const getPagamento = require("./functions/getPagamento");
 app.use('/admin', auth, adminController)
 app.use('/login', loginController)
 app.use('/api', apiController)
@@ -57,6 +60,68 @@ app.get('/informacoes', function(req, res){
 })
 app.get('/inscricoes', function(req, res){
     res.render('inscricoes')
+})
+app.get('/sucesso', async (req, res)=>{
+    try {
+        const referenceId = req.query.referenceId
+
+        if (!referenceId) {
+            console.log('Referência não foi recebida')
+            return res.redirect('/')        
+        }
+        //FAZER UM GET NA API DE PAGAMENTOS PRA ATUALIZAR O STATUS
+        
+        const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
+        if (!pagamento) {
+            console.log('Pagamento não encontrado na base de dados '+ referenceId)
+            return res.redirect('/')   
+        }
+
+        const pag = await getPagamento(pagamento.id)
+        if (pag.erro != undefined) {
+            console.log(pag.erro)
+        }
+
+
+        const pulseiras = await Pulseira.findAll({where:{pagamentoId:7}})
+        if (pulseiras.length == 0) {
+            console.log('Pulseiras não atreladas ao pagamento '+ pagamento.id)
+            return res.redirect('/') 
+        }
+
+        res.render('sucesso',{pulseiras,pagamento:pag})
+    } catch (error) {
+        res.redirect('/')        
+    }
+})
+
+app.get('/impressao', async (req, res)=>{
+    try {
+        // const referenceId = req.query.referenceId
+
+        // if (!referenceId) {
+        //     console.log('Referência não foi recebida')
+        //     return res.redirect('/')        
+        // }
+        //FAZER UM GET NA API DE PAGAMENTOS PRA ATUALIZAR O STATUS
+        
+        // const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
+        // if (!pagamento) {
+        //     console.log('Pagamento não encontrado na base de dados '+ referenceId)
+        //     return res.redirect('/')   
+        // }
+        // const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
+        const pulseiras = await Pulseira.findAll({where:{pagamentoId:16}})
+        if (pulseiras.length == 0) {
+            console.log('Pulseiras não atreladas ao pagamento '+ pulseiras.id)
+            return res.redirect('/') 
+        }
+
+        // res.render('sucesso',{pulseiras,pagamento})
+        res.render('impressao',{pulseiras})
+    } catch (error) {
+        res.redirect('/')        
+    }
 })
 
 app.listen(PORT, function() {

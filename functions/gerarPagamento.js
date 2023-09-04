@@ -6,7 +6,7 @@ const headers = {
     Authorization:`Bearer ${MP_TOKEN}`
 }
 
-async function gerarPagamento(pagamento, client,items) {
+async function gerarPagamento(pagamento,items) {
     console.log(`Iniciando um pagamento do tipo checkout, do pagamentoId ${pagamento.reference_id}`)
     try {
 
@@ -27,15 +27,16 @@ async function gerarPagamento(pagamento, client,items) {
                 //     }
                 // ]
             },
-            items:[{
+            items:items,
+            //items:[{
                 // reference_id: items.id,
-                name:items.desc,
-                quantity:items.quantity,
-                unit_amount:items.unit_amount
-            }],
-            notification_urls:[`https://dev.revonmidias.com/hook/pg/notificacao/${pagamento.reference_id}`],
-            redirect_url:`https://dev.revonmidias.com/equilibrium`,
-            return_url:`https://dev.revonmidias.com/equilibrium`,
+            //     name:items.desc,
+            //     quantity:items.quantity,
+            //     unit_amount:items.unit_amount
+            // }],
+            notification_urls:[`https://ibc.revonmidias.com/hook/pg/notificacao/${pagamento.reference_id}`],
+            redirect_url:`https://ibc.revonmidias.com/equilibrium?referenceId=${pagamento.reference_id}`,
+            return_url:`https://ibc.revonmidias.com/equilibrium?referenceId=${pagamento.reference_id}`,
         }
         console.log('Criando um checkout. URL: ',url)
         console.log('Corpo da Requisição: ')
@@ -45,6 +46,7 @@ async function gerarPagamento(pagamento, client,items) {
         console.log(request.data)
         return request.data
     } catch (error) {
+        console.log(error.response.data)
         throw new Error(error.toString());
     }
     

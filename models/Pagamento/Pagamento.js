@@ -104,9 +104,6 @@ const Pagamento = connection.define('tbl_pagamentos',{
 },
 {freezeTableName:true})
 
-Pagamento.belongsTo(Pulseira, {
-  foreignKey: 'pulseiraId'
-});
   
 Pagamento.sync({alter: true}).then(()=>{
    console.log("Tabela Pagamento criada")

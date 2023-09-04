@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { Op } = require('sequelize')
 const Pagamento = require('../../models/Pagamento/Pagamento')
+const Pulseira = require('../../models/Pulseira/Pulseira')
 
 router.post('/notificacao/:referenceId',async(req,res)=>{
     try {
@@ -25,6 +26,19 @@ router.post('/notificacao/:referenceId',async(req,res)=>{
         console.log("Dados atualizado:")
         console.log(model)
         await Pagamento.update(model,{where:{reference_id:referenceId}})
+        if (model.char_status == 'PAID') {
+            const pagamentoId = await Pagamento.findOne({where:{reference_id:referenceId},attributes:['id']})
+            const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamentoId.id},attributes:['valor_pulseira','id']})
+            console.log(`Atualizando dados de ${pulseiras.length} pulseiras`)
+            for (const pulseira of pulseiras) {
+                await Pulseira.update({
+                    status:'PAGO',
+                    valor_pago:pulseira.valor_pulseira
+                },{where:{
+                    id:pulseira.id
+                }})
+            }
+        }
         res.json({resp:'ok'})
 
         //O que fazer quando receber o pagamento...

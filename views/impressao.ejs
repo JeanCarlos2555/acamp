@@ -1,0 +1,51 @@
+<%- include("partials/head") %>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between">
+                    <h5 class="fw-bolder mt-1 align-middle">Pulseiras</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Cod.</th>
+                                    <th>Nome</th>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%pulseiras.forEach(pulseira=>{%>
+                                    <tr class="align-middle">
+                                        <td>ibc-<%=pulseira.id%>
+                                        </td>
+                                        <td>
+                                            <%=pulseira.nome%>
+                                                <%=pulseira.sobrenome%>
+                                        </td>
+                                        <td>
+                                            <%=(pulseira.isMeia)?'Meia':'Inteira'%>
+                                        </td>
+                                        <td>R$ <%=parseFloat(pulseira.valor_pulseira).toFixed(2)%>
+                                        </td>
+                                        <td>
+                                            <%=(pulseira.status)%>
+                                        </td>
+                                    </tr>
+                                    <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = ()=>{
+            window.print()
+        }
+    </script>
+    <%- include("partials/end") %>
