@@ -25,6 +25,8 @@ async function getPagamento(id) {
             referencia_id: pagamento.referencia_id,
             char_paid: 0
         };
+        console.log(payment)
+
 
         if (payment.charges && payment.charges.length > 0) {
             const charge = payment.charges[0];
