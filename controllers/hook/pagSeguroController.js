@@ -33,8 +33,8 @@ router.post('/notificacao/:referenceId', async (req, res) => {
 
             model.char_id = charge.id;
             model.char_status = charge.status;
-            model.char_createdAt = charge.createdAt;
-            model.char_paidAt = charge.paidAt;
+            model.char_createdAt = charge.created_at;
+            model.char_paidAt = charge.paid_at;
             model.char_value = charge.amount.value;
 
             if (charge.amount.summary) {

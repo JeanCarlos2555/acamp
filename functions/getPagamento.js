@@ -23,57 +23,49 @@ async function getPagamento(id) {
         const model = {
             payment_id: payment.id,
             referencia_id: pagamento.referencia_id,
-            char_paid: 0
+            char_id:payment.char_id,
+            char_paid: 0,
+            char_status:payment.status,
+            char_createdAt:payment.created_at,
+            char_paidAt:payment.paid_at,
+            char_value:payment.amount.value,
         };
-        console.log(payment)
-
-
-        if (payment.charges && payment.charges.length > 0) {
-            const charge = payment.charges[0];
-            console.log(charge)
-
-            model.char_id = charge.id;
-            model.char_status = charge.status;
-            model.char_createdAt = charge.createdAt;
-            model.char_paidAt = charge.paidAt;
-            model.char_value = charge.amount.value;
-
-            if (charge.amount.summary) {
-                const { summary } = charge.amount;
-                model.char_total = summary.total;
-                model.char_paid = summary.paid;
-            }
-
-            model.char_payment_message = charge.payment_response.message;
-            model.char_payment_reference = charge.payment_response.reference;
-
-            const paymentMethod = charge.payment_method;
-
-            model.char_payment_type = paymentMethod.type;
-            model.char_payment_installments = paymentMethod.installments;
-            model.char_payment_capture = paymentMethod.capture;
-            model.char_payment_capture_before = paymentMethod.capture_before;
-
-            if (paymentMethod.pix) {
-                model.char_payment_holder = paymentMethod.pix.holder.name;
-                model.char_payment_tax_id = paymentMethod.pix.holder.tax_id;
-            } else if (paymentMethod.card) {
-                model.char_payment_holder = paymentMethod.card.holder.name;
-            }
-            switch (charge.status) {
-                case 'PAID':
-                    model.status = 1
-                    break;
-                case 'DECLINED':
-                case 'CANCELED':
-                    model.status = 2
-                    break;
-                default:
-                    model.status = 0
-                    break;
-            }
-
+        
+        if (payment.amount.summary) {
+            const { summary } = payment.amount;
+            model.char_total = summary.total;
+            model.char_paid = summary.paid;
         }
+
+        model.char_payment_message = payment.payment_response.message;
+        model.char_payment_reference = payment.payment_response.reference;
+
+        const paymentMethod = payment.payment_method;
+
+        model.char_payment_type = paymentMethod.type;
+        model.char_payment_installments = paymentMethod.installments;
+        model.char_payment_capture = paymentMethod.capture;
+        model.char_payment_capture_before = paymentMethod.capture_before;
+
+        if (paymentMethod.pix) {
+            model.char_payment_holder = paymentMethod.pix.holder.name;
+            model.char_payment_tax_id = paymentMethod.pix.holder.tax_id;
+        } else if (paymentMethod.card) {
+            model.char_payment_holder = paymentMethod.card.holder.name;
+        }
+        switch (payment.status) {
+            case 'PAID':
+                model.status = 1
+                break;
+            case 'DECLINED':
+            case 'CANCELED':
+                model.status = 2
+                break;
+            default:
+                model.status = 0
+                break;
+        }
+
         console.log(model.status)
 
         if (model.status != pagamento.status) {
@@ -94,7 +86,7 @@ async function getPagamento(id) {
             }
 
             return pag
-        }else{
+        } else {
             return pagamento
         }
 
