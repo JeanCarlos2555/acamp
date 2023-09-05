@@ -23,7 +23,7 @@ async function getPagamento(id) {
 
         const model = {
             payment_id: payment.id,
-            referencia_id: referenceId,
+            referencia_id: pagamento.referencia_id,
             char_paid: 0
         };
 
@@ -95,7 +95,8 @@ async function getPagamento(id) {
         }
 
     } catch (error) {
-        throw new Error(error)
+        console.log(error)
+        return { erro: 'Oorreu um erro durante a consulta do pagamento' }
     }
 
 }

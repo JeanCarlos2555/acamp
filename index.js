@@ -81,6 +81,7 @@ app.get('/sucesso', async (req, res)=>{
         const pag = await getPagamento(pagamento.id)
         if (pag.erro != undefined) {
             console.log(pag.erro)
+            return res.redirect('/') 
         }
 
         const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
