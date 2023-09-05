@@ -10,7 +10,8 @@ const Pagamento = connection.define('tbl_pagamentos',{
     },
     reference_id:{
         type:Sequelize.STRING,
-        allowNull:true
+        allowNull:false,
+        unique:true
     },
     payment_id:{
         type:Sequelize.STRING,
@@ -44,7 +45,28 @@ const Pagamento = connection.define('tbl_pagamentos',{
         type:Sequelize.STRING,
         allowNull:true
     },
-    char_payment_doc:{
+    char_payment_type:{
+        type:Sequelize.STRING,
+        allowNull:true
+    },
+    char_payment_installments:{
+        type:Sequelize.INTEGER,
+        allowNull:true,
+        defaultValue:1
+    },
+    char_payment_capture:{
+        type:Sequelize.BOOLEAN,
+        allowNull:true
+    },
+    char_payment_capture_before:{
+        type:Sequelize.STRING,
+        allowNull:true
+    },
+    char_payment_holder:{
+        type:Sequelize.STRING,
+        allowNull:true
+    },
+    char_payment_tax_id:{
         type:Sequelize.STRING,
         allowNull:true
     },

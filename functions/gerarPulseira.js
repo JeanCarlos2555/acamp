@@ -24,7 +24,7 @@ async function gerarPulseira({igreja,afiliados}) {
             valor_mes.valor - 30
 
         const retorno = {
-            desc:`${quantity} Pulseiras para 3º ACAMPI IBC THE`,
+            desc:`${quantity} Pulseiras para ACAMP 2023 IBC THE`,
             unit_amount:valor,
             quantity:quantity,
             total_amount:valor * quantity

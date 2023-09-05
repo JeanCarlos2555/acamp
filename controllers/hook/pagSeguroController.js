@@ -3,40 +3,85 @@ const router = express.Router()
 const { Op } = require('sequelize')
 const Pagamento = require('../../models/Pagamento/Pagamento')
 
-router.post('/notificacao/:referenceId',async(req,res)=>{
+router.post('/notificacao/:referenceId', async (req, res) => {
     try {
-        console.log('Recebendo notificação')
-        console.log(req.body)
-        console.log('ID de referência')
-        console.log(req.params.referenceId)
-        const payment = req.body
-        const referenceId = req.params.referenceId
-        const model = {
-            payment_id:payment.id,
-            referecia_id:referenceId,
-            char_id:payment.charges[0].id,
-            char_status:payment.charges[0].status,
-            char_createdAt:payment.charges[0].createdAt,
-            char_paidAt:payment.charges[0].paidAt,
-            char_value:payment.charges[0].amount.value,
-            char_payment_message:payment.charges[0].payment_response.message,
-            char_payment_reference:payment.charges[0].payment_response.reference,
-        }
-        console.log("Dados atualizado:")
-        console.log(model)
-        await Pagamento.update(model,{where:{reference_id:referenceId}})
-        res.json({resp:'ok'})
+        console.log('Recebendo notificação');
+        console.log(req.body);
+        console.log('ID de referência');
+        console.log(req.params.referenceId);
 
-        //O que fazer quando receber o pagamento...
-    } catch (error) {
-        if (req.body.notificationCode != null) {
-            console.log('Recebemos o token de notificação')
-            res.status(200).send('Recebemos o token de notificação')
-        }else{
-            console.log(error)
-            res.status(400).send('Ocorreu um erro durante o processamento dos dados de pagamento')
+        const payment = req.body;
+        const referenceId = req.params.referenceId;
+
+        if (!payment || !referenceId) {
+            throw new Error('Requisição inválida');
         }
+        const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
+        if (!pagamento) {
+            throw new Error('Referência não encontrada na base de dados');
+        }
+
+        const model = {
+            payment_id: payment.id,
+            referencia_id: referenceId,
+        };
+
+        if (payment.charges && payment.charges.length > 0) {
+            const charge = payment.charges[0];
+
+            model.char_id = charge.id;
+            model.char_status = charge.status;
+            model.char_createdAt = charge.createdAt;
+            model.char_paidAt = charge.paidAt;
+            model.char_value = charge.amount.value;
+
+            if (charge.amount.summary) {
+                const { summary } = charge.amount;
+                model.char_total = summary.total;
+                model.char_paid = summary.paid;
+            }
+
+            model.char_payment_message = charge.payment_response.message;
+            model.char_payment_reference = charge.payment_response.reference;
+
+            const paymentMethod = charge.payment_method;
+
+            model.char_payment_type = paymentMethod.type;
+            model.char_payment_installments = paymentMethod.installments;
+            model.char_payment_capture = paymentMethod.capture;
+            model.char_payment_capture_before = paymentMethod.capture_before;
+
+            if (paymentMethod.pix) {
+                model.char_payment_holder = paymentMethod.pix.holder.name;
+                model.char_payment_tax_id = paymentMethod.pix.holder.tax_id;
+            } else if (paymentMethod.card) {
+                model.char_payment_holder = paymentMethod.card.holder.name;
+            }
+            switch (charge.status) {
+                case 'PAID':
+                    model.status = 1
+                    break;
+                case 'DECLINED':
+                case 'CANCELED':
+                    model.status = 2
+                    break;
+                default:
+                    model.status = 0
+                    break;
+            }
+
+        }
+
+        console.log("Dados atualizados:");
+        console.log(model);
+
+        await Pagamento.update(model,{where:{id:pagamento.id}})
+
+        res.json({ resp: 'ok' });
+    } catch (error) {
+        console.error(error);
+        res.status(400).send('Ocorreu um erro durante o processamento dos dados de pagamento');
     }
-})
+});
 
 module.exports = router
