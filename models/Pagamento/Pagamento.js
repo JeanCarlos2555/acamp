@@ -10,7 +10,7 @@ const Pagamento = connection.define('tbl_pagamentos',{
     },
     reference_id:{
         type:Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
         unique:true
     },
     payment_id:{

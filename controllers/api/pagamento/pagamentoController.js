@@ -40,6 +40,7 @@ router.post('/gerar/', async (req, res) => {
             res.json({ payment: payment.links[1].href, pagamentoId: pagamento.id })
 
         } catch (error) {
+            console.log(error)
             if (modelPag != undefined) {
                 if (error.response != undefined) {
                     console.log(error.response.data)
@@ -49,6 +50,8 @@ router.post('/gerar/', async (req, res) => {
                 }
             }
             return res.status(500).json({ erro: 'Ocorreu um erro durante o processamento dos dados de pagamento, gentileza tente novamente!' })
+        }finally{
+            await Pagamento.update(modelPag, { where: { id: modelPag.id } })
         }
     } catch (error) {
         console.log(error)
