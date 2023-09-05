@@ -1,0 +1,59 @@
+<%- include("partials/header") %>
+<div class="container-fluid">
+    <div class="container">
+        <div class="row justify-content-center">
+            <% if (pagamento.char_status == 'PAID') { %>
+                    <div class="col-12 my-3 text-center">
+                        <img src="/img/verified.gif" alt="" class="img-fluid w-25">
+                        <h3 class="text-success">Recebemos seu pagamento!</h3>
+                        <div class="card my-3">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                                <h5 class="fw-bolder mt-1 align-middle">Pulseiras</h5>
+                                <a target="_blank" href="/impressao/?pagamentoId=1" class="btn btn-dark">Imprimir</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Cod.</th>
+                                                <th>Nome</th>
+                                                <th>Tipo</th>
+                                                <th>Valor</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% pulseiras.forEach(pulseira => { %>
+                                                <tr class="align-middle">
+                                                    <td>ibc-<%= pulseira.id %></td>
+                                                    <td><%= pulseira.nome %> <%= pulseira.sobrenome %></td>
+                                                    <td><%= pulseira.isMeia ? 'Meia' : 'Inteira' %></td>
+                                                    <td>R$ <%= parseFloat(pulseira.valor_pulseira).toFixed(2) %></td>
+                                                    <td><%= pulseira.status %></td>
+                                                </tr>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }else if(pagamento.char_status == 'CANCELED' || pagamento.char_status == 'DECLINED'){ %>
+                    <div class="col-12 my-3 text-center">
+                        <img src="/img/warning.gif" alt="" class="img-fluid w-25">
+                        <h3 class="text-danger">Pagamento Recusado!</h3>
+                        <p class="my-0">A adquirente responsável por sua transação recusou seu pagamento!</p>
+                    </div>
+                <% }else{ %>
+                    <div class="col-12 my-3 text-center">
+                        <img src="/img/check.gif" alt="" class="img-fluid w-25">
+                        <h3 class="text-primary">Pagamento em Análise!</h3>
+                        <p>Estamos analisando seu pagamento, por gentileza aguarde até que nossa equipe realize a confirmação!</p>
+                    </div>
+                <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/end.ejs") %>

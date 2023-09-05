@@ -9,20 +9,19 @@ const Pulseira = connection.define('tbl_pulseira', {
     sobrenome: {
         type:Sequelize.STRING
     },
+    isMeia:{
+        type:Sequelize.BOOLEAN,
+        allowNull:false,
+        defaultValue:false
+    },
     igreja: {
         type:Sequelize.STRING //IBC Teresina, IBC Picos, OUTRAS DENOMINAÇÔES etc
     },
     valor_pulseira: {
-        type:Sequelize.DECIMAL
-    },
-    qtde_pulseira: {
-        type:Sequelize.INTEGER
-    },
-    valor_total: {
-        type:Sequelize.DECIMAL
+        type:Sequelize.FLOAT
     },
     valor_pago: {
-        type:Sequelize.DECIMAL,
+        type:Sequelize.FLOAT,
         allowNull:true
     },
     status: {

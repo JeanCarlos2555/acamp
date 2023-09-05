@@ -37,6 +37,14 @@ const Pagamento = connection.define('tbl_pagamentos',{
         type:Sequelize.INTEGER,
         allowNull:true
     },
+    char_payment_type:{
+        type:Sequelize.STRING,
+        allowNull:true
+    },
+    char_payment_installments:{
+        type:Sequelize.INTEGER,
+        allowNull:true
+    },
     char_payment_message:{
         type:Sequelize.STRING,
         allowNull:true
@@ -126,9 +134,6 @@ const Pagamento = connection.define('tbl_pagamentos',{
 },
 {freezeTableName:true})
 
-Pagamento.belongsTo(Pulseira, {
-  foreignKey: 'pulseiraId'
-});
   
 Pagamento.sync({alter: true}).then(()=>{
    console.log("Tabela Pagamento criada")

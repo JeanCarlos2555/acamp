@@ -21,6 +21,8 @@
             </select>
           </div>
           <input type="hidden" value="1" id="qtde">
+          <input type="hidden" value="1" id="qtde_inteira">
+          <input type="hidden" value="0" id="qtde_meia">
           <div class="nomes">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Informe seu nome</label>
@@ -29,6 +31,13 @@
             <div class="mb-3">
               <label for="sobrenome" class="form-label">Informe seu sobre nome</label>
               <input type="text" class="form-control" id="sobrenome" nome="sobrenome" placeholder="Sobrenome">
+            </div>
+            <div class="mb-3">
+              <label for="isMeia" class="form-label">Tipo</label>
+              <select name="isMeia" onchange="handleAddIsMeia(this.value)" id="isMeia" class="form-select">
+                <option value="false" selected>Inteira</option>
+                <option value="true">Meia</option>
+              </select>
             </div>
             <div id="form_afiliados" class="mb-3">
 

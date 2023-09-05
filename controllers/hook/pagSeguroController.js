@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { Op } = require('sequelize')
 const Pagamento = require('../../models/Pagamento/Pagamento')
+const Pulseira = require('../../models/Pulseira/Pulseira')
 
 router.post('/notificacao/:referenceId', async (req, res) => {
     try {
@@ -16,7 +17,7 @@ router.post('/notificacao/:referenceId', async (req, res) => {
         if (!payment || !referenceId) {
             throw new Error('Requisição inválida');
         }
-        const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
+        const pagamento = await Pagamento.findOne({ where: { reference_id: referenceId } })
         if (!pagamento) {
             throw new Error('Referência não encontrada na base de dados');
         }
@@ -24,6 +25,7 @@ router.post('/notificacao/:referenceId', async (req, res) => {
         const model = {
             payment_id: payment.id,
             referencia_id: referenceId,
+            char_paid: 0
         };
 
         if (payment.charges && payment.charges.length > 0) {
@@ -71,13 +73,25 @@ router.post('/notificacao/:referenceId', async (req, res) => {
             }
 
         }
+        console.log("Dados atualizado:")
+        console.log(model)
+        await Pagamento.update(model, { where: { id: pagamento.id } })
+        if (model.status == 1) {
+            const pulseiras = await Pulseira.findAll({ where: { pagamentoId: pagamento.id }, attributes: ['id'] })
+            console.log(`Atualizando dados de ${pulseiras.length} pulseiras`)
+            for (const pulseira of pulseiras) {
+                await Pulseira.update({
+                    status: 'PAGO',
+                    valor_pago: (model.char_paid / 100) / pulseiras.length
+                }, {
+                    where: {
+                        id: pulseira.id
+                    }
+                })
+            }
+        }
+        res.json({ resp: 'ok' })
 
-        console.log("Dados atualizados:");
-        console.log(model);
-
-        await Pagamento.update(model,{where:{id:pagamento.id}})
-
-        res.json({ resp: 'ok' });
     } catch (error) {
         console.error(error);
         res.status(400).send('Ocorreu um erro durante o processamento dos dados de pagamento');
