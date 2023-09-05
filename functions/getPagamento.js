@@ -21,16 +21,10 @@ async function getPagamento(id) {
         const request = await axios.get(`${MP_URL}/charges/${pagamento.char_id}`, { headers })
         const payment = request.data
         const model = {
-            payment_id: payment.id,
-            referencia_id: pagamento.referencia_id,
-            char_id:payment.char_id,
-            char_paid: 0,
-            char_status:payment.status,
-            char_createdAt:payment.created_at,
-            char_paidAt:payment.paid_at,
-            char_value:payment.amount.value,
+            char_status: payment.status,
+            char_createdAt: payment.created_at,
         };
-        
+        model.char_value = payment.amount.value
         if (payment.amount.summary) {
             const { summary } = payment.amount;
             model.char_total = summary.total;
