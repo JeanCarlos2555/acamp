@@ -20,7 +20,6 @@ async function getPagamento(id) {
         }
         const request = await axios.get(`${MP_URL}/charges/${pagamento.char_id}`, { headers })
         const payment = request.data
-
         const model = {
             payment_id: payment.id,
             referencia_id: pagamento.referencia_id,
@@ -29,6 +28,7 @@ async function getPagamento(id) {
 
         if (payment.charges && payment.charges.length > 0) {
             const charge = payment.charges[0];
+            console.log(charge)
 
             model.char_id = charge.id;
             model.char_status = charge.status;
@@ -72,6 +72,8 @@ async function getPagamento(id) {
             }
 
         }
+        console.log(model.status)
+
         if (model.status != pagamento.status) {
             await Pagamento.update(model, { where: { id: pagamento.id } })
 
