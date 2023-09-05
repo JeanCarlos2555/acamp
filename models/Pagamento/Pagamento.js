@@ -41,10 +41,6 @@ const Pagamento = connection.define('tbl_pagamentos',{
         type:Sequelize.STRING,
         allowNull:true
     },
-    char_payment_installments:{
-        type:Sequelize.INTEGER,
-        allowNull:true
-    },
     char_payment_message:{
         type:Sequelize.STRING,
         allowNull:true

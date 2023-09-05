@@ -83,7 +83,6 @@ app.get('/sucesso', async (req, res)=>{
             console.log(pag.erro)
         }
 
-
         const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
         if (pulseiras.length == 0) {
             console.log('Pulseiras não atreladas ao pagamento '+ pagamento.id)
@@ -105,7 +104,6 @@ app.get('/impressao', async (req, res)=>{
             console.log('Referência não foi recebida')
             return res.redirect('/')        
         }
-        //FAZER UM GET NA API DE PAGAMENTOS PRA ATUALIZAR O STATUS
         
         const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
         if (!pagamento) {
@@ -118,7 +116,6 @@ app.get('/impressao', async (req, res)=>{
             return res.redirect('/') 
         }
 
-        // res.render('sucesso',{pulseiras,pagamento})
         res.render('impressao',{pulseiras})
     } catch (error) {
         res.redirect('/')        
