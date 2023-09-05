@@ -70,8 +70,6 @@ app.get('/sucesso', async (req, res)=>{
             console.log('Referência não foi recebida')
             return res.redirect('/')        
         }
-        //FAZER UM GET NA API DE PAGAMENTOS PRA ATUALIZAR O STATUS
-        
         const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
         if (!pagamento) {
             console.log('Pagamento não encontrado na base de dados '+ referenceId)
