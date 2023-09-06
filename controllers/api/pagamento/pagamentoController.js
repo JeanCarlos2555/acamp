@@ -16,7 +16,7 @@ router.post('/gerar/', async (req, res) => {
         //Será enviada somente a quantidade de items e o backend vai calcular o valor total e o texto conforme a regra de negócio
         try {
             const {items,pulseiras} = await gerarPulseira({ client,igreja, afiliados })
-           console.log(items)
+            console.log(items)
             const pagDesc = items.reduce((a,i)=>{
                 return a + (a == '')?`(${i.quantity}) - ${i.name}`:` | (${i.quantity}) - ${i.name}`
             },'')

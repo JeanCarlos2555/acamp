@@ -6,7 +6,6 @@ async function gerarPulseira({ client, igreja, afiliados }) {
     try {
         const valor_mes = findValorMes(parametros);
         const valor_meia = 70
-
         const pulseiras = generatePulseiraList({ clientes: [client, ...afiliados], igreja, valor_meia, valor_inteira: valor_mes.valor });
         const pulseira_inteira = pulseiras.filter(p => p.isMeia == false)
         const pulseira_meia = pulseiras.filter(p => p.isMeia == true)
@@ -57,8 +56,8 @@ function generatePulseiraList({ igreja, clientes, valor_meia, valor_inteira }) {
             nome: cliente.nome,
             sobrenome: cliente.sobrenome,
             igreja: igreja,
-            valor_pulseira: clientes.isMeia == true || clientes.isMeia == 'true' ? valor_meia : valor_inteira,
-            isMeia: clientes.isMeia == true || clientes.isMeia == 'true'
+            valor_pulseira: (cliente.isMeia == true || cliente.isMeia == 'true') ? valor_meia : valor_inteira,
+            isMeia: cliente.isMeia == true || cliente.isMeia == 'true'
         }));
 }
 
