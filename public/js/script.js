@@ -21,16 +21,15 @@ async function irparapagamento() {
             const client = { nome: nome, sobrenome: sobrenome, isMeia: isMeia }
             const afiliados = []
             for (let index = 2; index <= qtde; index++) {
-                const nome = $(`#nome${index}`).val()
-                const sobrenome = $(`#sobreNome${index}`).val()
-                const isMeia = $(`#isMeia${index}`).val()
-                afiliados.push({ nome: nome, sobrenome: sobrenome, isMeia, isMeia })
+                const nome_afil = $(`#nome${index}`).val()
+                const sobrenome_afil = $(`#sobreNome${index}`).val()
+                const isMeia_afil = $(`#isMeia${index}`).val()
+                afiliados.push({ nome: nome_afil, sobrenome: sobrenome_afil, isMeia: isMeia_afil })
             }
             const request = await axios.post('/api/pg/gerar', { igreja: igreja, client: client, afiliados: afiliados })
             const { payment, pagamentoId } = request.data
             console.log(request.data);
             const button = document.createElement('a')
-            button.target = '_blank'
             button.href = payment
             alert('Você será redirecionado para a tela de pagamento!')
             button.click()
