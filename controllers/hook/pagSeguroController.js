@@ -25,7 +25,6 @@ router.post('/notificacao/:referenceId', async (req, res) => {
         const model = {
             payment_id: payment.id,
             referencia_id: referenceId,
-            char_paid: 0
         };
 
         if (payment.charges && payment.charges.length > 0) {

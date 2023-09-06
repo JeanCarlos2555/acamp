@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require("express");
 const app = express();
 const path = require("path");
+const moment = require("moment");
 const bodyParser = require("body-parser")
 const session = require("express-session")
 const cookieParser = require("cookie-parser")
@@ -70,7 +71,7 @@ app.get('/sucesso', async (req, res)=>{
             console.log('Referência não foi recebida')
             return res.redirect('/')        
         }
-        const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
+        const pagamento = await Pagamento.findOne({where:{reference_id:referenceId},attributes:['id']})
         if (!pagamento) {
             console.log('Pagamento não encontrado na base de dados '+ referenceId)
             return res.redirect('/')   
@@ -81,12 +82,19 @@ app.get('/sucesso', async (req, res)=>{
             console.log(pag.erro)
             return res.redirect('/') 
         }
+        // console.log(pag)
 
         const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
         if (pulseiras.length == 0) {
             console.log('Pulseiras não atreladas ao pagamento '+ pagamento.id)
             return res.redirect('/') 
         }
+        if (pag && pag.status == 1) {
+            pag.char_createdAt = moment(pag.char_createdAt).format('DD/MM/YYYY HH:mm:SS')
+            pag.valor_parcela = parseFloat((pag.char_paid / 100) /  pag.char_payment_installments).toFixed(2)
+        }
+        
+        // console.log(pag)
 
         res.render('sucesso',{pulseiras,pagamento:pag})
     } catch (error) {
@@ -104,7 +112,7 @@ app.get('/impressao', async (req, res)=>{
             return res.redirect('/')        
         }
         
-        const pagamento = await Pagamento.findOne({where:{reference_id:referenceId}})
+        const pagamento = await Pagamento.findOne({where:{reference_id:referenceId},attributes:['char_createdAt','char_payment_installments','char_payment_type','status','id','char_paid']})
         if (!pagamento) {
             console.log('Pagamento não encontrado na base de dados '+ referenceId)
             return res.redirect('/')   
@@ -114,8 +122,15 @@ app.get('/impressao', async (req, res)=>{
             console.log('Pulseiras não atreladas ao pagamento '+ pulseiras.id)
             return res.redirect('/') 
         }
+        if (pagamento && pagamento.status == 1) {
+            pagamento.char_createdAt = moment(pagamento.char_createdAt).format('DD/MM/YYYY HH:mm:SS')
+            pagamento.valor_parcela = parseFloat((pagamento.char_paid / 100) /  pagamento.char_payment_installments).toFixed(2)
+        }else{
+            console.log('Pagamento não confirmado')
+            return res.redirect('/') 
+        }
 
-        res.render('impressao',{pulseiras})
+        res.render('impressao',{pulseiras,pagamento})
     } catch (error) {
         res.redirect('/')        
     }

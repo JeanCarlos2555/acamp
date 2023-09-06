@@ -20,6 +20,7 @@ async function getPagamento(id) {
         }
         const request = await axios.get(`${MP_URL}/charges/${pagamento.char_id}`, { headers })
         const payment = request.data
+        console.log(payment)
         const model = {
             char_status: payment.status,
             char_createdAt: payment.created_at,
@@ -63,7 +64,7 @@ async function getPagamento(id) {
         console.log(payment)
         console.log(model)
 
-        if (model.status != undefined && (model.status != pagamento.status)) {
+        // if (model.status != undefined && (model.status != pagamento.status)) {
             await Pagamento.update(model, { where: { id: pagamento.id } })
 
             const pag = await Pagamento.findByPk(pagamento.id)
@@ -81,9 +82,9 @@ async function getPagamento(id) {
             }
 
             return pag
-        } else {
-            return pagamento
-        }
+        // } else {
+        //     return pagamento
+        // }
 
     } catch (error) {
         console.log(error)

@@ -14,6 +14,7 @@
                                     <th>Nome</th>
                                     <th>Tipo</th>
                                     <th>Valor</th>
+                                    <th>Valor Pago</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,7 @@
                                             <%=(pulseira.isMeia)?'Meia':'Inteira'%>
                                         </td>
                                         <td>R$ <%=parseFloat(pulseira.valor_pulseira).toFixed(2)%>
+                                        <td>R$ <%=parseFloat(pulseira.valor_pago).toFixed(2)%>
                                         </td>
                                         <td>
                                             <%=(pulseira.status)%>
@@ -37,6 +39,11 @@
                                     </tr>
                                     <%})%>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="text-center" colspan="6">Pago dia: <%=pagamento.char_createdAt%> - <%=pagamento.char_payment_installments%>X de R$ <%=pagamento.valor_parcela%> - Metodo: <%=pagamento.char_payment_type%></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
