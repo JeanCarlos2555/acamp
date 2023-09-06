@@ -38,6 +38,13 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th>Totais:</th>
+                                                <th><%=pulseiras.length%> UND</th>
+                                                <th></th>
+                                                <th>R$ <%=parseFloat(pagamento.valor_pulseira).toFixed(2)%></th>
+                                                <th>R$ <%=pagamento.char_paid / 100%></th>
+                                            </tr>
+                                            <tr>
                                                 <th colspan="6">Pago dia: <%=pagamento.char_createdAt%> - <%=pagamento.char_payment_installments%>X de R$ <%=pagamento.valor_parcela%> - Metodo: <%=pagamento.char_payment_type%></th>
                                             </tr>
                                         </tfoot>

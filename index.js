@@ -90,6 +90,7 @@ app.get('/sucesso', async (req, res)=>{
             return res.redirect('/') 
         }
         if (pag && pag.status == 1) {
+            pag.valor_pulseira = pulseiras.reduce((valor,objeto)=>{return valor + objeto.valor_pulseira},0)
             pag.char_createdAt = moment(pag.char_createdAt).format('DD/MM/YYYY HH:mm:SS')
             pag.valor_parcela = parseFloat((pag.char_paid / 100) /  pag.char_payment_installments).toFixed(2)
         }
@@ -123,6 +124,7 @@ app.get('/impressao', async (req, res)=>{
             return res.redirect('/') 
         }
         if (pagamento && pagamento.status == 1) {
+            pagamento.valor_pulseira = pulseiras.reduce((valor,objeto)=>{return valor + objeto.valor_pulseira},0)
             pagamento.char_createdAt = moment(pagamento.char_createdAt).format('DD/MM/YYYY HH:mm:SS')
             pagamento.valor_parcela = parseFloat((pagamento.char_paid / 100) /  pagamento.char_payment_installments).toFixed(2)
         }else{
