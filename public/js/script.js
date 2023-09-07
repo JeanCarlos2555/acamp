@@ -123,6 +123,7 @@ function addDependete() {
     }
 
     const form_afiliados = $("#form_afiliados").html()
+
     $("#form_afiliados").html(form_afiliados + html)
 
     calculaTotal()
