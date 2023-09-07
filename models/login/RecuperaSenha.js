@@ -20,8 +20,8 @@ const RecuperaSenha = connection.define('tbl_recuperasenhas',{
     },
 })
 
-RecuperaSenha.sync({alter: true}).then(()=>{
-   console.log("Tabela RecuperaSenha criada")        
-})
+//RecuperaSenha.sync({alter: true}).then(()=>{
+//   console.log("Tabela RecuperaSenha criada")        
+//})
 
 module.exports = RecuperaSenha

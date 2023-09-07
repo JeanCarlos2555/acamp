@@ -135,8 +135,8 @@ const Pagamento = connection.define('tbl_pagamentos',{
 {freezeTableName:true})
 
   
-Pagamento.sync({alter: true}).then(()=>{
-   console.log("Tabela Pagamento criada")
-})
+//Pagamento.sync({alter: true}).then(()=>{
+//   console.log("Tabela Pagamento criada")
+//})
 
 module.exports = Pagamento
