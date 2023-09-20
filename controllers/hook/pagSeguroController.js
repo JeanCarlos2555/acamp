@@ -75,18 +75,21 @@ router.post('/notificacao/:referenceId', async (req, res) => {
         console.log("Dados atualizado:")
         console.log(model)
         await Pagamento.update(model, { where: { id: pagamento.id } })
-        const pulseiras = await Pulseira.findAll({ where: { pagamentoId: pagamento.id }, attributes: ['id'] })
-        console.log(`Atualizando dados de ${pulseiras.length} pulseiras`)
-        for (const pulseira of pulseiras) {
-            await Pulseira.update({
-                status: (model.status == 1) ? 'PAGO' : (model.status == 2) ? 'CANCELADO' : 'PENDENTE',
-                valor_pago: (model.char_paid) ? ((model.char_paid / 100) / pulseiras.length) : 0
-            }, {
-                where: {
-                    id: pulseira.id
-                }
-            })
+        if (model.status) {
+            const pulseiras = await Pulseira.findAll({ where: { pagamentoId: pagamento.id }, attributes: ['id'] })
+            console.log(`Atualizando dados de ${pulseiras.length} pulseiras`)
+            for (const pulseira of pulseiras) {
+                await Pulseira.update({
+                    status: (model.status == 1) ? 'PAGO' : (model.status == 2) ? 'CANCELADO' : 'PENDENTE',
+                    valor_pago: (model.char_paid) ? ((model.char_paid / 100) / pulseiras.length) : 0
+                }, {
+                    where: {
+                        id: pulseira.id
+                    }
+                })
+            }
         }
+
         res.json({ resp: 'ok' })
 
     } catch (error) {
