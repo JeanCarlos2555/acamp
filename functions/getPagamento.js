@@ -2,6 +2,7 @@ const axios = require('axios')
 const Pagamento = require('../models/Pagamento/Pagamento')
 const Pulseira = require('../models/Pulseira/Pulseira')
 const { Op } = require('sequelize')
+const PulseiraPagamento = require('../models/Pulseira/PulseiraPagamento')
 const MP_URL = process.env.MP_URL
 const MP_TOKEN = process.env.MP_TOKEN
 const headers = {
