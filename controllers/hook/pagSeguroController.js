@@ -3,6 +3,7 @@ const router = express.Router()
 const { Op } = require('sequelize')
 const Pagamento = require('../../models/Pagamento/Pagamento')
 const Pulseira = require('../../models/Pulseira/Pulseira')
+const PulseiraPagamento = require('../../models/Pulseira/PulseiraPagamento')
 
 router.post('/notificacao/:referenceId', async (req, res) => {
     try {
@@ -76,7 +77,7 @@ router.post('/notificacao/:referenceId', async (req, res) => {
         console.log(model)
         await Pagamento.update(model, { where: { id: pagamento.id } })
         if (model.status) {
-            const pulseiras = await Pulseira.findAll({ where: { pagamentoId: pagamento.id }, attributes: ['id'] })
+            const pulseiras = await PulseiraPagamento.findAll({ where: { pagamento_id: pagamento.id }, attributes: ['pulseira_id'] })
             console.log(`Atualizando dados de ${pulseiras.length} pulseiras`)
             for (const pulseira of pulseiras) {
                 await Pulseira.update({
@@ -84,7 +85,7 @@ router.post('/notificacao/:referenceId', async (req, res) => {
                     valor_pago: (model.char_paid) ? ((model.char_paid / 100) / pulseiras.length) : 0
                 }, {
                     where: {
-                        id: pulseira.id
+                        id: pulseira.pulseira_id
                     }
                 })
             }

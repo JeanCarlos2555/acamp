@@ -45,6 +45,8 @@ const hookController = require('./controllers/hookController');
 const Pagamento = require("./models/Pagamento/Pagamento");
 const Pulseira = require("./models/Pulseira/Pulseira");
 const getPagamento = require("./functions/getPagamento");
+const PulseiraPagamento = require("./models/Pulseira/PulseiraPagamento");
+const { Op } = require("sequelize");
 app.use('/admin', auth, adminController)
 app.use('/login', loginController)
 app.use('/api', apiController)
@@ -83,8 +85,8 @@ app.get('/sucesso', async (req, res)=>{
             return res.redirect('/') 
         }
         // console.log(pag)
-
-        const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
+        const pulseirasIds = await PulseiraPagamento.findAll({where:{pagamentoId:pagamento.id},attributes:['pulseira_id']})
+        const pulseiras = await Pulseira.findAll({where:{id:{[Op.in]:pulseirasIds.map(p => p.pulseira_id)}}})
         if (pulseiras.length == 0) {
             console.log('Pulseiras não atreladas ao pagamento '+ pagamento.id)
             return res.redirect('/') 
@@ -118,7 +120,8 @@ app.get('/impressao', async (req, res)=>{
             console.log('Pagamento não encontrado na base de dados '+ referenceId)
             return res.redirect('/')   
         }
-        const pulseiras = await Pulseira.findAll({where:{pagamentoId:pagamento.id}})
+        const pulseirasIds = await PulseiraPagamento.findAll({where:{pagamentoId:pagamento.id},attributes:['pulseira_id']})
+        const pulseiras = await Pulseira.findAll({where:{id:{[Op.in]:pulseirasIds.map(p => p.pulseira_id)}}})
         if (pulseiras.length == 0) {
             console.log('Pulseiras não atreladas ao pagamento '+ pulseiras.id)
             return res.redirect('/') 

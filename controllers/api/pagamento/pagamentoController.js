@@ -5,6 +5,7 @@ const moment = require('moment')
 const gerarPagamento = require('../../../functions/gerarPagamento')
 const gerarPulseira = require('../../../functions/gerarPulseira')
 const Pulseira = require('../../../models/Pulseira/Pulseira')
+const PulseiraPagamento = require('../../../models/Pulseira/PulseiraPagamento')
 
 router.post('/gerar/', async (req, res) => {
     try {
@@ -28,9 +29,16 @@ router.post('/gerar/', async (req, res) => {
             modelPag.reference_id = `ibc-pag-${pagamento.id}`
 
             var modelPulseira = pulseiras.map(p =>{
-                return {...p,forma_cadastro: 'Site', pagamentoId: pagamento.id}
+                return {...p,forma_cadastro: 'Site'}
             })
-            await Pulseira.bulkCreate(modelPulseira)
+           
+            const pulseirasList = await Pulseira.bulkCreate(modelPulseira)
+            await PulseiraPagamento.bulkCreate(pulseirasList.map(p =>{
+                return {
+                    pulseira_id:p.id,
+                    pagamento_id:pagamento.id
+                }
+            }))
 
             const payment = await gerarPagamento(modelPag, items)
             modelPag.payment_id = payment.id

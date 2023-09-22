@@ -1,6 +1,7 @@
 const axios = require('axios')
 const Pagamento = require('../models/Pagamento/Pagamento')
 const Pulseira = require('../models/Pulseira/Pulseira')
+const { Op } = require('sequelize')
 const MP_URL = process.env.MP_URL
 const MP_TOKEN = process.env.MP_TOKEN
 const headers = {
@@ -65,7 +66,9 @@ async function getPagamento(id) {
             await Pagamento.update(model, { where: { id: pagamento.id } })
 
             const pag = await Pagamento.findByPk(pagamento.id)
-            const pulseiras = await Pulseira.findAll({ where: { pagamentoId: pagamento.id }, attributes: ['id'] })
+            const pulseiras = await PulseiraPagamento.findAll({where:{pagamentoId:pagamento.id},attributes:['pulseira_id']})
+            // const pulseiras = await Pulseira.findAll({where:{id:{[Op.in]:pulseirasIds.map(p => p.pulseira_id)}}, attributes: ['id'] })
+            // const pulseiras = await Pulseira.findAll({ where: { pagamentoId: pagamento.id }, attributes: ['id'] })
             console.log(`Atualizando dados de ${pulseiras.length} pulseiras`)
             for (const pulseira of pulseiras) {
                 await Pulseira.update({
@@ -73,7 +76,7 @@ async function getPagamento(id) {
                     valor_pago: (model.char_paid) ? ((model.char_paid / 100) / pulseiras.length) : 0
                 }, {
                     where: {
-                        id: pulseira.id
+                        id: pulseira.pulseira_id
                     }
                 })
             }

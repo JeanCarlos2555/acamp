@@ -10,10 +10,13 @@ const PulseiraPagamento = connection.define('tbl_pulseira_pagamento',{},{freezeT
 PulseiraPagamento.belongsTo(Pulseira,{
     foreignKey:'pulseira_id'
 })
+Pulseira.hasMany(PulseiraPagamento,{foreignKey:'pulseira_id'})
 
 PulseiraPagamento.belongsTo(Pagamento,{
     foreignKey:'pagamento_id'
 })
+Pagamento.hasMany(PulseiraPagamento,{foreignKey:'pagamento_id'})
+
 
 PulseiraPagamento.sync({alter: true}).then(()=>{
    console.log("Tabela PulseiraPagamento criada")

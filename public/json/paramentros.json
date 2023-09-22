@@ -1,5 +1,5 @@
 [
-    {"inicio":"2023-08-15","fim":"2023-09-30","valor":140,"valor_desc":130},
-    {"inicio":"2023-10-01","fim":"2023-10-14","valor":150,"valor_desc":130},
-    {"inicio":"2023-10-15","fim":"2023-12-01","valor":160,"valor_desc":130}
+    {"inicio":"2023-08-15","fim":"2023-09-30","valor":146,"valor_desc":136},
+    {"inicio":"2023-10-01","fim":"2023-10-31","valor":157,"valor_desc":136},
+    {"inicio":"2023-11-01","fim":"2023-12-01","valor":167,"valor_desc":136}
 ]
