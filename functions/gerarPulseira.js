@@ -26,7 +26,7 @@ async function gerarPulseira({ client, igreja, afiliados }) {
 
         if (pulseira_meia.length > 0) {
             items.push({
-                name: `${pulseira_meia.length} Pulseira(s) MEIA para 3º ACAMP IBC THE`,
+                name: `${pulseira_meia.length} Pulseira(s) MEIA para ACAMP 2023 IBC THE`,
                 unit_amount:  parseInt(parseFloat(valor_meia).toFixed(2).replace('.','')),
                 quantity: pulseira_meia.length,
                 total_amount: valor_meia * pulseira_meia.length,

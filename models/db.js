@@ -15,7 +15,7 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
 })  
 
 sequelize.authenticate().then(function(){
-    console.log('Conectado com sucesso.')
+    console.log('Conectado com sucesso!.')
 }).catch(function(erro){
     console.log('Erro ao se conectar: '+erro)
 })

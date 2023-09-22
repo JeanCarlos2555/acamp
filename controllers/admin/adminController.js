@@ -9,16 +9,15 @@ router.get("/", async (req, res) => {
 })
 
 router.post("/cadpulseira", async (req, res) => {
-  
+    let {client,afiliados,valor_pago,igreja} = req.body
+
+    const {items,pulseiras} = await gerarPulseira({ client,igreja, afiliados })
+    //method:'ADMIN',reference_id:'ibc-admin-${id},status:0,clientNome,item,valor
     //Cadastrar pagamento.
     //Methodo = "Dinheiro fisico" // status fisico // cliente nome = nome // cliente email = email@ibc //cliente documento = 0  // cliente phone = 0 // item = Pulseira // valor
-    const valor = req.body.valor_pago
+    const valor = req.body
 
-    axios.post(`/cadpagamento`, valor).then(resposta => {
-        
-    }).catch(function(erro){
-        console.log(erro)
-    })
+    console.log(valor)
 })
 
 router.post("/cadpagamento", async function(req, res) {

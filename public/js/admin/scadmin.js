@@ -26,7 +26,7 @@ function mudarQtdePulseiras() {
         </div>
         <div class="mb-3">
           <label for="sobreNome${qtde}" class="form-labe${qtde}">Sobrenome do familiar ${qtde-1}</label>
-          <input type="text" class="form-control" id="sobreNome${qtde}" name="sobreNome_${qtde}" placeholder="Sobrenome do familiar ${qtde-1}">
+          <input type="text" class="form-control" id="sobrenome${qtde}" name="sobrenome_${qtde}" placeholder="Sobrenome do familiar ${qtde-1}">
         </div>`
         if (igreja == 0 || igreja == 1) {
             if (qtde >= 3 ) {
