@@ -62,7 +62,7 @@ function generatePulseiraList({ igreja, clientes, valor_meia, valor_inteira }) {
 }
 
 function calculateValorInteira(pulseira_inteira, igreja, valor_mes) {
-    return igreja <= 1 ? (pulseira_inteira.length >= 3 ? valor_mes.valor_desc : valor_mes.valor) : valor_mes.valor - 30;
+    return igreja <= 1 ? (pulseira_inteira.length >= 3 ? valor_mes.valor_desc : valor_mes.valor) : 116;
 }
 
 

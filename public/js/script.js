@@ -47,7 +47,7 @@ function findValorMes(parametros) {
     return parametros.find(p => moment(p.inicio).isSameOrBefore(moment(), 'day') && moment(p.fim).isSameOrAfter(moment(), 'd'));
 }
 function calculateValorInteira(pulseira_inteira, igreja, valor_mes) {
-    return igreja <= 1 ? (pulseira_inteira >= 3 ? valor_mes.valor_desc : valor_mes.valor) : valor_mes.valor - 30;
+    return igreja <= 1 ? (pulseira_inteira >= 3 ? valor_mes.valor_desc : valor_mes.valor) : 116;
 }
 
 function handleAddIsMeia(valor) {
