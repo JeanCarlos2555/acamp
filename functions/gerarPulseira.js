@@ -5,7 +5,7 @@ const moment = require('moment')
 async function gerarPulseira({ client, igreja, afiliados }) {
     try {
         const valor_mes = findValorMes(parametros);
-        const valor_meia = 70
+        const valor_meia = 75
         const pulseiras = generatePulseiraList({ clientes: [client, ...afiliados], igreja, valor_meia, valor_inteira: valor_mes.valor });
         const pulseira_inteira = pulseiras.filter(p => p.isMeia == false)
         const pulseira_meia = pulseiras.filter(p => p.isMeia == true)

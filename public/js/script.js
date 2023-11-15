@@ -72,7 +72,7 @@ async function calculaTotal() {
     const response = await fetch('/json/paramentros.json');
     const parametros = await response.json();
     const valor_mes = findValorMes(parametros);
-    const valor_meia = 70 * qtde_meia
+    const valor_meia = 75 * qtde_meia
     const valor_inteira = (qtde_inteira != 0) ? calculateValorInteira(qtde_inteira, igreja, valor_mes) * qtde_inteira : 0
     const total = parseFloat(valor_meia + valor_inteira).toFixed(2)
     $("#total").val(total)
